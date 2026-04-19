@@ -1,0 +1,93 @@
+.after-harvest-card {
+  background: #3C9AFF;
+  background: linear-gradient(135deg, rgba(60, 154, 255, 1) 0%, rgba(0, 102, 254, 1) 100%);
+  border-radius: 8px;
+  padding: 24px;
+  width: 100%;
+  color: #f1f5f9;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  box-sizing: border-box;
+}
+
+.after-title {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #ffffff;
+}
+
+.after-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.after-row > div:nth-child(2),
+.after-row > div:nth-child(3) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: #D1D7ED;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.after-row:nth-child(5) > div:nth-child(2),
+.after-row:nth-child(5) > div:nth-child(3) {
+  color: #ffffff;
+}
+
+.after-header-row {
+  margin-bottom: 20px;
+}
+
+.after-header-row > div:nth-child(2),
+.after-header-row > div:nth-child(3) {
+  font-size: 16px;
+  font-weight: 500;
+  color: #D1D7ED;
+  text-align: right;
+}
+
+.after-row-label {
+  color: #ffffff;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.after-row:nth-child(5) {
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.after-realised-row {
+  display: flex;
+  align-items: center;
+  gap: 8%;
+  margin-top: 24px;
+}
+
+.after-realised-row .after-row-label {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.after-realised-row .after-total-gain {
+  font-size: 28px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.after-savings-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+}

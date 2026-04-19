@@ -1,0 +1,18 @@
+.main-container {
+  padding: 1% 2.55%;
+}
+
+.Harvest-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 20px;
+  padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .Harvest-container {
+    flex-direction: column;
+    padding: 0 16px;
+  }
+}
