@@ -86,7 +86,7 @@ export default function AfterHarvest({ selectedHoldings }: AfterHarvestProps) {
             </div>
 
             <div className="after-realised-row">
-                <div className="after-row-label">Realised Capital Gains:</div>
+                <div className="after-row-label">Effective Capital Gains:</div>
                 <div className="after-total-gain">${totalGain.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
             </div>
 
