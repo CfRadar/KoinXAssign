@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import "../styles/HoldingsTable.css";
 
 type GainType = {
@@ -21,6 +22,113 @@ type SortKey = "stcg" | "ltcg" | null;
 
 type HoldingsTableProps = {
     onSelectionChange?: (selectedHoldings: Holding[]) => void;
+};
+
+const formatDollarExact = (value: number) => {
+    const sign = value < 0 ? "-" : "";
+    const absoluteValue = Math.abs(value);
+
+    return `${sign}$${absoluteValue.toLocaleString("en-US", {
+        minimumFractionDigits: 4,
+        maximumFractionDigits: 4,
+    })}`;
+};
+
+type NumberWithTooltipProps = {
+    displayValue: string;
+    tooltipValue: string;
+    className?: string;
+};
+
+const NumberWithTooltip: React.FC<NumberWithTooltipProps> = ({
+    displayValue,
+    tooltipValue,
+    className,
+}) => {
+    const triggerRef = useRef<HTMLSpanElement | null>(null);
+    const hideTimerRef = useRef<number | null>(null);
+    const [isVisible, setIsVisible] = useState(false);
+    const [position, setPosition] = useState({ left: 0, top: 0 });
+
+    const updatePosition = () => {
+        if (!triggerRef.current) {
+            return;
+        }
+
+        const rect = triggerRef.current.getBoundingClientRect();
+        setPosition({
+            left: rect.left + rect.width / 2,
+            top: rect.top,
+        });
+    };
+
+    const clearHideTimer = () => {
+        if (hideTimerRef.current !== null) {
+            window.clearTimeout(hideTimerRef.current);
+            hideTimerRef.current = null;
+        }
+    };
+
+    const showTooltip = () => {
+        clearHideTimer();
+        updatePosition();
+        setIsVisible(true);
+    };
+
+    const hideTooltip = () => {
+        clearHideTimer();
+        hideTimerRef.current = window.setTimeout(() => {
+            setIsVisible(false);
+        }, 120);
+    };
+
+    useEffect(() => {
+        if (!isVisible) {
+            return;
+        }
+
+        const handleReposition = () => updatePosition();
+
+        window.addEventListener("scroll", handleReposition, true);
+        window.addEventListener("resize", handleReposition);
+
+        return () => {
+            window.removeEventListener("scroll", handleReposition, true);
+            window.removeEventListener("resize", handleReposition);
+        };
+    }, [isVisible]);
+
+    useEffect(() => {
+        return () => clearHideTimer();
+    }, []);
+
+    return (
+        <div className={className}>
+            <span
+                ref={triggerRef}
+                className="value-tooltip-trigger"
+                tabIndex={0}
+                onMouseEnter={showTooltip}
+                onMouseLeave={hideTooltip}
+                onFocus={showTooltip}
+                onBlur={hideTooltip}
+            >
+                {displayValue}
+            </span>
+            {isVisible && createPortal(
+                <span
+                    className="value-tooltip value-tooltip-visible"
+                    role="tooltip"
+                    style={{ left: `${position.left}px`, top: `${position.top}px` }}
+                    onMouseEnter={showTooltip}
+                    onMouseLeave={hideTooltip}
+                >
+                    {tooltipValue}
+                </span>,
+                document.body,
+            )}
+        </div>
+    );
 };
 
 const HoldingsTable: React.FC<HoldingsTableProps> = ({ onSelectionChange }) => {
@@ -148,7 +256,10 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ onSelectionChange }) => {
 
                                 {/* HOLDINGS + BOTH PRICES */}
                                 <div className="col right">
-                                    <div>{item.totalHolding.toFixed(4)}</div>
+                                    <NumberWithTooltip
+                                        displayValue={item.totalHolding.toFixed(4)}
+                                        tooltipValue={formatDollarExact(item.totalHolding * item.currentPrice)}
+                                    />
                                     <div className="sub">
                                         $ {item.averageBuyPrice.toFixed(2)} / $ {item.currentPrice.toFixed(2)}
                                     </div>
@@ -156,9 +267,11 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ onSelectionChange }) => {
 
                                 {/* STCG */}
                                 <div className="col right">
-                                    <div className={item.stcg.gain >= 0 ? "profit" : "loss"}>
-                                        $ {item.stcg.gain.toFixed(2)}
-                                    </div>
+                                    <NumberWithTooltip
+                                        className={item.stcg.gain >= 0 ? "profit" : "loss"}
+                                        displayValue={`$ ${item.stcg.gain.toFixed(2)}`}
+                                        tooltipValue={formatDollarExact(item.stcg.gain)}
+                                    />
                                     <div className="sub">
                                         {item.stcg.balance.toFixed(4)}
                                     </div>
@@ -166,9 +279,11 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ onSelectionChange }) => {
 
                                 {/* LTCG */}
                                 <div className="col right">
-                                    <div className={item.ltcg.gain >= 0 ? "profit" : "loss"}>
-                                        $ {item.ltcg.gain.toFixed(2)}
-                                    </div>
+                                    <NumberWithTooltip
+                                        className={item.ltcg.gain >= 0 ? "profit" : "loss"}
+                                        displayValue={`$ ${item.ltcg.gain.toFixed(2)}`}
+                                        tooltipValue={formatDollarExact(item.ltcg.gain)}
+                                    />
                                     <div className="sub">
                                         {item.ltcg.balance.toFixed(4)}
                                     </div>

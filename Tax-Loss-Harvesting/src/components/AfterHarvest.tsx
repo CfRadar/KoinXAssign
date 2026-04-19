@@ -79,7 +79,9 @@ export default function AfterHarvest({ selectedHoldings }: AfterHarvestProps) {
             <div className="after-row">
                 <div className="after-row-label">Net Capital Gains</div>
                 <div>$ {stcgNet.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
-                <div>$ {ltcgNet.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                <div style={{ color: ltcgNet < 0 ? "#ff4d4d" : undefined }}>
+                    $ {ltcgNet.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                </div>
             </div>
 
             <div className="after-realised-row">

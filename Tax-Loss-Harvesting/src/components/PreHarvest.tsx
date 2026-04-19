@@ -57,7 +57,9 @@ export default function PreHarvest() {
       <div className="pre-row">
         <div className="row-label">Net Capital Gains</div>
         <div>$ {stcgNet.toLocaleString()}</div>
-        <div>$ {ltcgNet.toLocaleString()}</div>
+        <div style={{ color: ltcgNet < 0 ? "#ff4d4d" : undefined }}>
+          $ {ltcgNet.toLocaleString()}
+        </div>
       </div>
 
       <div className="realised-row">
