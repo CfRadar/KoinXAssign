@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import "../styles/AfterHarvest.css";
 
-export default function AfterHarvest() {
+type AfterHarvestProps = {
+    selectedHoldings: { coin: string; stcg: { gain: number; balance: number }; ltcg: { gain: number; balance: number } }[];
+};
+
+export default function AfterHarvest({ selectedHoldings }: AfterHarvestProps) {
     const [capitalGains, setCapitalGains] = useState<any>(null);
-    const [holdings, setHoldings] = useState<any[]>([]);
-    const [selectedCoins, setSelectedCoins] = useState<Set<string>>(new Set());
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,15 +38,12 @@ export default function AfterHarvest() {
     const baseLtcgNet = ltcgProfit - ltcgLoss;
     const baseTotalGain = baseStcgNet + baseLtcgNet;
 
-    // Apply selected holdings
-    selectedCoins.forEach(coinSymbol => {
-        const holding = holdings.find(h => h.coin === coinSymbol);
-        if (holding) {
-            if (holding.stcg.gain > 0) stcgProfit += holding.stcg.gain;
-            if (holding.stcg.gain < 0) stcgLoss += Math.abs(holding.stcg.gain);
-            if (holding.ltcg.gain > 0) ltcgProfit += holding.ltcg.gain;
-            if (holding.ltcg.gain < 0) ltcgLoss += Math.abs(holding.ltcg.gain);
-        }
+    // Apply selected holdings directly
+    selectedHoldings.forEach(holding => {
+        if (holding.stcg.gain > 0) stcgProfit += holding.stcg.gain;
+        if (holding.stcg.gain < 0) stcgLoss += Math.abs(holding.stcg.gain);
+        if (holding.ltcg.gain > 0) ltcgProfit += holding.ltcg.gain;
+        if (holding.ltcg.gain < 0) ltcgLoss += Math.abs(holding.ltcg.gain);
     });
 
     const stcgNet = stcgProfit - stcgLoss;
@@ -88,13 +87,11 @@ export default function AfterHarvest() {
                 <div className="after-total-gain">${totalGain.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
             </div>
 
-            {savedAmount > 0 && (
-                <div className="after-savings-container">
+            <div className="after-savings-container" style={{ visibility: savedAmount > 0 ? "visible" : "hidden" }}>
                     <span>🎉</span>
                     <span>You are going to save upto</span>
-                    <span>$ {savedAmount.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                    <span>$ {savedAmount.toLocaleString(undefined, { maximumFractionDigits: 10 })}</span>
                 </div>
-            )}
 
 
         </div>

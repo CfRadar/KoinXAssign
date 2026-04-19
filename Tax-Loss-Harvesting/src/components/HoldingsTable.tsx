@@ -19,7 +19,11 @@ type Holding = {
 
 type SortKey = "stcg" | "ltcg" | null;
 
-const HoldingsTable: React.FC = () => {
+type HoldingsTableProps = {
+    onSelectionChange?: (selectedHoldings: Holding[]) => void;
+};
+
+const HoldingsTable: React.FC<HoldingsTableProps> = ({ onSelectionChange }) => {
     const [data, setData] = useState<Holding[]>([]);
     const [showAll, setShowAll] = useState(false);
     const [selectedRows, setSelectedRows] = useState<number[]>([]);
@@ -58,11 +62,15 @@ const HoldingsTable: React.FC = () => {
     };
 
     const toggleRow = (index: number) => {
-        setSelectedRows((prev) =>
-            prev.includes(index)
+        setSelectedRows((prev) => {
+            const next = prev.includes(index)
                 ? prev.filter((i) => i !== index)
-                : [...prev, index]
-        );
+                : [...prev, index];
+            if (onSelectionChange) {
+                onSelectionChange(next.map((i) => data[i]));
+            }
+            return next;
+        });
     };
 
     const visibleData = showAll ? data : data.slice(0, 4);

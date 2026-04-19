@@ -6,17 +6,17 @@ import AfterHarvest from "./components/AfterHarvest";
 import HoldingsTable from "./components/HoldingsTable";
 
 function App() {
-  useState;
+  const [selectedHoldings, setSelectedHoldings] = useState<any[]>([]);
 
   return (
     <div className="main-container">
       <DisclaimerBar title={"Important Notes & Disclaimers"}></DisclaimerBar>
       <div className="Harvest-container">
         <PreHarvest></PreHarvest>
-        <AfterHarvest></AfterHarvest>
+        <AfterHarvest selectedHoldings={selectedHoldings} />
       </div>
       <div className="Holdings-container">
-        <HoldingsTable></HoldingsTable>
+        <HoldingsTable onSelectionChange={setSelectedHoldings}></HoldingsTable>
       </div>
     </div>
   );
