@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./styles/main.css";
+import Header from "./components/Header";
 import DisclaimerBar from "./components/DisclaimerBar";
 import PreHarvest from "./components/PreHarvest";
 import AfterHarvest from "./components/AfterHarvest";
@@ -24,16 +25,19 @@ function App() {
   }, []);
 
   return (
-    <div className="main-container">
-      <DisclaimerBar title={"Important Notes & Disclaimers"}></DisclaimerBar>
-      <div className="Harvest-container">
-        <PreHarvest></PreHarvest>
-        <AfterHarvest selectedHoldings={selectedHoldings} />
+    <>
+      <Header />
+      <div className="main-container">
+        <DisclaimerBar title={"Important Notes & Disclaimers"}></DisclaimerBar>
+        <div className="Harvest-container">
+          <PreHarvest></PreHarvest>
+          <AfterHarvest selectedHoldings={selectedHoldings} />
+        </div>
+        <div className="Holdings-container">
+          <HoldingsTable onSelectionChange={setSelectedHoldings}></HoldingsTable>
+        </div>
       </div>
-      <div className="Holdings-container">
-        <HoldingsTable onSelectionChange={setSelectedHoldings}></HoldingsTable>
-      </div>
-    </div>
+    </>
   );
 }
 
