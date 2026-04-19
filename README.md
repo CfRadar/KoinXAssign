@@ -129,6 +129,9 @@ Virtually every interactive element includes soft transition delays, background 
 ### Dark Theme View
 ![Dark Theme View](./screenshots/dark_theme.png)
 
+### Light Theme View
+![Light Theme View](./screenshots/light_theme.png)
+
 ### Mobile Responsive View
 ![Mobile Responsive View](./screenshots/mobile_view.png)
 
