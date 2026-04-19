@@ -65,6 +65,11 @@
     z-index: 0;
 }
 
+.body-row.selected {
+    background: #1f2436;
+    box-shadow: inset 0 0 0 1px rgba(77, 166, 255, 0.45);
+}
+
 .body-row:hover,
 .body-row:focus-within {
     z-index: 3;

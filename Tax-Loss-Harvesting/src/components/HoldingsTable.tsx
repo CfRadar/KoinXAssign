@@ -236,7 +236,10 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ onSelectionChange }) => {
                     {/* BODY */}
                     <div className="body">
                         {visibleData.map((item, i) => (
-                            <div key={i} className="row body-row">
+                            <div
+                                key={i}
+                                className={`row body-row ${selectedRows.includes(i) ? "selected" : ""}`}
+                            >
 
                                 <div className="checkbox-cell">
                                     <input
