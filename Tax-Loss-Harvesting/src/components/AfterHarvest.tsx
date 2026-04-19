@@ -2,101 +2,101 @@ import { useEffect, useState } from "react";
 import "../styles/AfterHarvest.css";
 
 export default function AfterHarvest() {
-  const [capitalGains, setCapitalGains] = useState<any>(null);
-  const [holdings, setHoldings] = useState<any[]>([]);
-  const [selectedCoins, setSelectedCoins] = useState<Set<string>>(new Set());
+    const [capitalGains, setCapitalGains] = useState<any>(null);
+    const [holdings, setHoldings] = useState<any[]>([]);
+    const [selectedCoins, setSelectedCoins] = useState<Set<string>>(new Set());
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/capital-gains");
-        const gainsData = await res.json();
-        
-        setCapitalGains(gainsData.capitalGains);
-        // TODO: holdings and selectedCoins will be passed from the connected table component later
-      } catch (err) {
-        console.error("Error fetching data:", err);
-      }
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch("http://localhost:5000/api/capital-gains");
+                const gainsData = await res.json();
 
-    fetchData();
-  }, []);
+                setCapitalGains(gainsData.capitalGains);
+                // TODO: holdings and selectedCoins will be passed from the connected table component later
+            } catch (err) {
+                console.error("Error fetching data:", err);
+            }
+        };
 
-  if (!capitalGains) {
-    return <div className="loading-text">Loading...</div>;
-  }
+        fetchData();
+    }, []);
 
-  let stcgProfit = capitalGains.stcg.profits;
-  let stcgLoss = capitalGains.stcg.losses;
-  let ltcgProfit = capitalGains.ltcg.profits;
-  let ltcgLoss = capitalGains.ltcg.losses;
-
-  // Compute base pre-harvest total gain to compare later
-  const baseStcgNet = stcgProfit - stcgLoss;
-  const baseLtcgNet = ltcgProfit - ltcgLoss;
-  const baseTotalGain = baseStcgNet + baseLtcgNet;
-
-  // Apply selected holdings
-  selectedCoins.forEach(coinSymbol => {
-    const holding = holdings.find(h => h.coin === coinSymbol);
-    if (holding) {
-      if (holding.stcg.gain > 0) stcgProfit += holding.stcg.gain;
-      if (holding.stcg.gain < 0) stcgLoss += Math.abs(holding.stcg.gain);
-      if (holding.ltcg.gain > 0) ltcgProfit += holding.ltcg.gain;
-      if (holding.ltcg.gain < 0) ltcgLoss += Math.abs(holding.ltcg.gain);
+    if (!capitalGains) {
+        return <div className="loading-text">Loading...</div>;
     }
-  });
 
-  const stcgNet = stcgProfit - stcgLoss;
-  const ltcgNet = ltcgProfit - ltcgLoss;
-  const totalGain = stcgNet + ltcgNet;
+    let stcgProfit = capitalGains.stcg.profits;
+    let stcgLoss = capitalGains.stcg.losses;
+    let ltcgProfit = capitalGains.ltcg.profits;
+    let ltcgLoss = capitalGains.ltcg.losses;
 
-  const savedAmount = baseTotalGain - totalGain;
+    // Compute base pre-harvest total gain to compare later
+    const baseStcgNet = stcgProfit - stcgLoss;
+    const baseLtcgNet = ltcgProfit - ltcgLoss;
+    const baseTotalGain = baseStcgNet + baseLtcgNet;
+
+    // Apply selected holdings
+    selectedCoins.forEach(coinSymbol => {
+        const holding = holdings.find(h => h.coin === coinSymbol);
+        if (holding) {
+            if (holding.stcg.gain > 0) stcgProfit += holding.stcg.gain;
+            if (holding.stcg.gain < 0) stcgLoss += Math.abs(holding.stcg.gain);
+            if (holding.ltcg.gain > 0) ltcgProfit += holding.ltcg.gain;
+            if (holding.ltcg.gain < 0) ltcgLoss += Math.abs(holding.ltcg.gain);
+        }
+    });
+
+    const stcgNet = stcgProfit - stcgLoss;
+    const ltcgNet = ltcgProfit - ltcgLoss;
+    const totalGain = stcgNet + ltcgNet;
+
+    const savedAmount = baseTotalGain - totalGain;
 
 
 
-  return (
-    <div className="after-harvest-card">
-      <div className="after-title">After Harvesting</div>
+    return (
+        <div className="after-harvest-card">
+            <div className="after-title">After Harvesting</div>
 
-      <div className="after-row after-header-row">
-        <div></div>
-        <div>Short-term</div>
-        <div>Long-term</div>
-      </div>
+            <div className="after-row after-header-row">
+                <div></div>
+                <div>Short-term</div>
+                <div>Long-term</div>
+            </div>
 
-      <div className="after-row">
-        <div className="after-row-label">Profits</div>
-        <div>$ {stcgProfit.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
-        <div>$ {ltcgProfit.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
-      </div>
+            <div className="after-row">
+                <div className="after-row-label">Profits</div>
+                <div>$ {stcgProfit.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                <div>$ {ltcgProfit.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+            </div>
 
-      <div className="after-row">
-        <div className="after-row-label">Losses</div>
-        <div>- $ {stcgLoss.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
-        <div>- $ {ltcgLoss.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
-      </div>
+            <div className="after-row">
+                <div className="after-row-label">Losses</div>
+                <div>- $ {stcgLoss.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                <div>- $ {ltcgLoss.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+            </div>
 
-      <div className="after-row">
-        <div className="after-row-label">Net Capital Gains</div>
-        <div>$ {stcgNet.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
-        <div>$ {ltcgNet.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
-      </div>
+            <div className="after-row">
+                <div className="after-row-label">Net Capital Gains</div>
+                <div>$ {stcgNet.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                <div>$ {ltcgNet.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+            </div>
 
-      <div className="after-realised-row">
-        <div className="after-row-label">Realised Capital Gains:</div>
-        <div className="after-total-gain">${totalGain.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
-      </div>
+            <div className="after-realised-row">
+                <div className="after-row-label">Realised Capital Gains:</div>
+                <div className="after-total-gain">${totalGain.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+            </div>
 
-      {savedAmount > 0 && (
-        <div className="after-savings-container">
-          <span>🎉</span>
-          <span>You are going to save upto</span>
-          <span>$ {savedAmount.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+            {savedAmount > 0 && (
+                <div className="after-savings-container">
+                    <span>🎉</span>
+                    <span>You are going to save upto</span>
+                    <span>$ {savedAmount.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                </div>
+            )}
+
+
         </div>
-      )}
-
-
-    </div>
-  );
+    );
 }

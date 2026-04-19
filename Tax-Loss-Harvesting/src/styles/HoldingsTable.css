@@ -1,0 +1,175 @@
+.table-container {
+    width: 100%;
+    color: white;
+    font-family: sans-serif;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+/* 🔥 SCROLL WRAPPER */
+.table-scroll {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Prevent shrinking */
+.table {
+    min-width: 900px;
+    /* important for horizontal scroll */
+}
+
+/* ROW */
+.row {
+    display: grid;
+    grid-template-columns: 48px 2fr 1.5fr 1.5fr 1.5fr 1.5fr;
+    align-items: center;
+    height: 48px;
+}
+
+.row>div:last-child {
+    padding-right: 16px;
+}
+
+/* HEADER */
+.header {
+    background: #0a0a12;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-radius: 8px;
+}
+
+/* BODY */
+.body {
+    max-height: 260px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.body-row {
+    background: #171A26;
+    border-bottom: 1px solid #3A3F54;
+    height: 64px;
+}
+
+/* to remove border on very last item if wanted, but generally fine as is */
+.body-row:last-child {
+    border-bottom: none;
+}
+
+/* CHECKBOX */
+.checkbox-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkbox-cell input {
+    width: 18px;
+    height: 18px;
+}
+
+/* ASSET */
+.asset {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    overflow: hidden;
+}
+
+.asset>div {
+    overflow: hidden;
+}
+
+.asset img {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.coin {
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.symbol {
+    font-size: 12px;
+    color: #a9afc5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* RIGHT */
+.col.right {
+    text-align: right;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* SUB TEXT */
+.sub {
+    font-size: 12px;
+    font-weight: 500;
+    color: #a9afc5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* PROFIT / LOSS */
+.profit {
+    color: #00ffa3;
+}
+
+.loss {
+    color: #ff4d4d;
+}
+
+/* SORT */
+.sortable {
+    cursor: pointer;
+}
+
+.triangle {
+    font-size: 10px;
+    margin-right: 4px;
+}
+
+/* VIEW ALL */
+.view-all {
+    margin-top: 10px;
+    color: #4da6ff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 📱 MOBILE IMPROVEMENTS */
+@media (max-width: 768px) {
+    .title {
+        font-size: 18px;
+    }
+
+    .row {
+        height: 56px;
+    }
+
+    .body-row {
+        height: 70px;
+    }
+}

@@ -3,6 +3,7 @@ import "./styles/main.css";
 import DisclaimerBar from "./components/DisclaimerBar";
 import PreHarvest from "./components/PreHarvest";
 import AfterHarvest from "./components/AfterHarvest";
+import HoldingsTable from "./components/HoldingsTable";
 
 function App() {
   useState;
@@ -13,6 +14,9 @@ function App() {
       <div className="Harvest-container">
         <PreHarvest></PreHarvest>
         <AfterHarvest></AfterHarvest>
+      </div>
+      <div className="Holdings-container">
+        <HoldingsTable></HoldingsTable>
       </div>
     </div>
   );
