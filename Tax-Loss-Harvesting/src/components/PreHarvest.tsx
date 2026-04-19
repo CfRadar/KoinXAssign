@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../utils/apiBaseUrl";
 import "../styles/PreHarvest.css";
 
 export default function PreHarvest() {
@@ -7,7 +8,7 @@ export default function PreHarvest() {
   useEffect(() => {
     const fetchCapitalGains = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/capital-gains");
+        const res = await fetch(`${API_BASE_URL}/api/capital-gains`);
         const data = await res.json();
         setCapitalGains(data.capitalGains);
       } catch (err) {

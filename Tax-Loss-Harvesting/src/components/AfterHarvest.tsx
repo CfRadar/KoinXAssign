@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../utils/apiBaseUrl";
 import "../styles/AfterHarvest.css";
 
 type AfterHarvestProps = {
@@ -11,7 +12,7 @@ export default function AfterHarvest({ selectedHoldings }: AfterHarvestProps) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch("http://localhost:5000/api/capital-gains");
+                const res = await fetch(`${API_BASE_URL}/api/capital-gains`);
                 const gainsData = await res.json();
 
                 setCapitalGains(gainsData.capitalGains);

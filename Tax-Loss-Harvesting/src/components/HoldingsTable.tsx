@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { API_BASE_URL } from "../utils/apiBaseUrl";
 import "../styles/HoldingsTable.css";
 
 type GainType = {
@@ -144,7 +145,7 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ onSelectionChange }) => {
     });
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/holdings")
+        fetch(`${API_BASE_URL}/api/holdings`)
             .then((res) => res.json())
             .then((res: Holding[]) => setData(res))
             .catch((err) => console.error(err));
