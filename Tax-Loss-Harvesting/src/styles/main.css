@@ -6,6 +6,8 @@
   --card-shadow: none;
   --text-primary: #ffffff;
   --text-secondary: #a9afc5;
+  --layout-padding-y: 12px;
+  --layout-padding-x: clamp(16px, 2.55vw, 32px);
 }
 
 [data-theme="light"] {
@@ -18,9 +20,10 @@
 }
 
 .main-container {
-  padding: 1% 2.55%;
+  padding: var(--layout-padding-y) var(--layout-padding-x);
   background: var(--page-bg);
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .Harvest-container {
