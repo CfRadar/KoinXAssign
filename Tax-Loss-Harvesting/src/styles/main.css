@@ -1,5 +1,26 @@
+:root,
+[data-theme="dark"] {
+  --page-bg: #0b0f17;
+  --card-bg: #171A26;
+  --card-border: transparent;
+  --card-shadow: none;
+  --text-primary: #ffffff;
+  --text-secondary: #a9afc5;
+}
+
+[data-theme="light"] {
+  --page-bg: #f5f7fb;
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.05);
+  --card-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b7280;
+}
+
 .main-container {
   padding: 1% 2.55%;
+  background: var(--page-bg);
+  min-height: 100vh;
 }
 
 .Harvest-container {
@@ -23,8 +44,10 @@
 }
 
 .Holdings-container {
-  background-color: #171A26;
+  background-color: var(--card-bg);
   border-radius: 8px;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
   padding: 24px;
   margin: 20px 24px;
   box-sizing: border-box;

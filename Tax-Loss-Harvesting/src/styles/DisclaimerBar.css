@@ -5,7 +5,7 @@ body,
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background-color: #050816;
+  background-color: var(--page-bg, #050816);
 }
 
 body {
@@ -14,8 +14,8 @@ body {
 
 .tax-harvesting-section {
   width: 100%;
-  background-color: #050816;
-  color: white;
+  background-color: var(--page-bg, #050816);
+  color: var(--text-primary, white);
   font-family: Arial, sans-serif;
   box-sizing: border-box;
   padding: 24px;
@@ -33,6 +33,7 @@ body {
   font-weight: 600;
   margin: 0;
   line-height: 1;
+  color: var(--text-primary, #ffffff);
 }
 
 .tooltip-wrapper {
@@ -115,7 +116,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
+  color: #ffffff;
   cursor: pointer;
 }
 
@@ -172,6 +173,47 @@ body {
   line-height: 1.6;
   margin-bottom: 2px;
   text-align: left;
+}
+
+[data-theme="light"] .tax-harvesting-section {
+  background-color: var(--page-bg, #f5f7fb);
+  color: #1a1a1a;
+}
+
+[data-theme="light"] .header-row h2 {
+  color: #1a1a1a;
+}
+
+[data-theme="light"] .disclaimer-wrapper {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .disclaimer-bar {
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+[data-theme="light"] .info-icon {
+  border-color: #cbd5e1;
+  color: #2563eb;
+}
+
+[data-theme="light"] .left-content span {
+  color: #1a1a1a;
+}
+
+[data-theme="light"] .arrow-icon {
+  color: #6b7280;
+}
+
+[data-theme="light"] .dropdown-content {
+  background: #ffffff;
+}
+
+[data-theme="light"] .dropdown-content li {
+  color: #6b7280;
 }
 
 @media (max-width: 768px) {

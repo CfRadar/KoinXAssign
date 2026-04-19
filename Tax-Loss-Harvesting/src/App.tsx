@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles/main.css";
 import DisclaimerBar from "./components/DisclaimerBar";
 import PreHarvest from "./components/PreHarvest";
@@ -7,6 +7,21 @@ import HoldingsTable from "./components/HoldingsTable";
 
 function App() {
   const [selectedHoldings, setSelectedHoldings] = useState<any[]>([]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const applyTheme = (e: MediaQueryList | MediaQueryListEvent) => {
+      document.documentElement.setAttribute("data-theme", e.matches ? "dark" : "light");
+    };
+
+    applyTheme(mediaQuery);
+    mediaQuery.addEventListener("change", applyTheme);
+
+    return () => {
+      mediaQuery.removeEventListener("change", applyTheme);
+    };
+  }, []);
 
   return (
     <div className="main-container">
