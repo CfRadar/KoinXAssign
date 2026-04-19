@@ -146,9 +146,11 @@
     cursor: pointer;
 }
 
-.triangle {
+.sort-arrow {
+    display: inline-block;
     font-size: 10px;
-    margin-right: 4px;
+    margin-right: 5px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
 /* VIEW ALL */

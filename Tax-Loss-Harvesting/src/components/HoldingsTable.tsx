@@ -100,14 +100,26 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ onSelectionChange }) => {
                             className="col right sortable"
                             onClick={() => handleSort("stcg")}
                         >
-                            <span className="triangle">▲</span> Short-Term Gain
+                            <span
+                                className="sort-arrow"
+                                style={{
+                                    transform: sortConfig.key === "stcg" && sortConfig.direction === "desc" ? "rotate(180deg)" : "rotate(0deg)",
+                                    opacity: sortConfig.key === "stcg" ? 1 : 0.35,
+                                }}
+                            >▲</span> Short-Term Gain
                         </div>
 
                         <div
                             className="col right sortable"
                             onClick={() => handleSort("ltcg")}
                         >
-                            <span className="triangle">▲</span> Long-Term Gain
+                            <span
+                                className="sort-arrow"
+                                style={{
+                                    transform: sortConfig.key === "ltcg" && sortConfig.direction === "desc" ? "rotate(180deg)" : "rotate(0deg)",
+                                    opacity: sortConfig.key === "ltcg" ? 1 : 0.35,
+                                }}
+                            >▲</span> Long-Term Gain
                         </div>
 
                         <div className="col right">Amount to Sell</div>
